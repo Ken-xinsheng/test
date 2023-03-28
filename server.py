@@ -20,6 +20,15 @@ def today():
 def welcome():
     user = request.values.get("ken")
     return  render_template("welcome.html",name=user)
+
+@app.route("/create")
+def read():
+    Result = ""
+    collection_ref = db.collection("sushi")
+    docs = collection_ref.get()
+    for doc in docs:
+        Result+="文件內容:{}".format(doc.to_dict())+"<br>"
+    return Result
 if __name__ == "__main__":
     #app.run()
     serve(app,host='0.0.0.0',port=8080)
